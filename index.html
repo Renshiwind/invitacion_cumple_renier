@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Invitación</title>
+    <style>
+        /* Estilos CSS */
+
+/*        @import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');*/
+/*        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600&display=swap');*/
+ 
+
+        body {
+/*            font-family: 'Open Sans', sans-serif;*/
+            font-family: "Exo 2", sans-serif;
+            margin: 0;
+            overflow: hidden; 
+            height: 100vh;
+            display: flex; /* Usado para centrar el card */
+            justify-content: center; /* Centrar horizontalmente */
+            align-items: center; /* Centrar verticalmente */
+            /* Fondo Degradado Negro como el espacio */
+            background: radial-gradient(ellipse at bottom, #0d1a29 0%, #010408 100%);
+        }
+
+        .particle-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%; /* Forma de círculo */
+            /* Efecto difuminado (brillo/halo) */
+            box-shadow: 0 0 5px currentColor;
+            opacity: 0; /* Inicialmente invisible */
+            transition: opacity 0.5s; /* Transición para que aparezcan suavemente */
+        }
+
+        .glass-card {
+            /* Dimensiones */
+            width: 80%;
+            max-width: 500px;
+            padding: 30px;
+            border-radius: 15px;
+
+            /* Efecto "Liquid Glass" (Cristal Esmerilado) */
+            background: rgba(255, 255, 255, 0.1); /* Blanco transparente */
+            backdrop-filter: blur(10px); /* Desenfoque de lo que hay detrás */
+            -webkit-backdrop-filter: blur(10px); /* Compatibilidad con navegadores */
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Borde sutil */
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); /* Sombra para profundidad */
+            
+            /* Posición y contenido */
+            position: relative; /* Para asegurar que esté por encima de las partículas */
+            z-index: 2; /* Mayor que el contenedor de partículas */
+            color: #f0f0f0; /* Color de texto blanco/gris claro */
+            text-align: center;
+            font-family: sans-serif;
+        }
+
+        .glass-card h1 {
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="particle-container" id="particle-container">
+        </div>
+
+        <div class="glass-card">
+        <h1>¡Hola, tu!</h1>
+        <p>
+            Estás cordialmente invitado a celebrar conmigo un año más de vida. <br>
+            Algo chill, porque muy mala suerte mía cumplir años un martes.
+            <i>¿Cuento contigo?</i>
+        </p>
+        <p>Nos vemos aquí: <a href="https://maps.app.goo.gl/3eUFnP9wvVNN5Fe27" target="_blank" style="text-decoration: none;">Rest. El Zambo Grill</a> </p>
+
+        <small>
+            7 de octubre <br>
+            7:00pm
+        </small>
+
+
+    </div>
+
+    <script>
+        // Código JavaScript
+        const container = document.getElementById('particle-container');
+        const numParticles = 100; // Número de partículas
+
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            // Tamaño y Color Aleatorio
+            const size = Math.random() * 3 + 1; // Tamaño entre 1px y 4px
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+
+            // Colores más difuminados: blancos, azules, púrpuras, etc.
+            const colors = ['#ffffff', '#add8e6', '#9370db', '#87cefa', '#f0f8ff'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            particle.style.backgroundColor = randomColor;
+            particle.style.color = randomColor; // Usado por el box-shadow
+
+            // Posición inicial aleatoria
+            const x = Math.random() * 100;
+            const y = Math.random() * 100;
+            particle.style.left = `${x}vw`;
+            particle.style.top = `${y}vh`;
+
+            // Velocidad de Movimiento (lento o rápido)
+            const speed = Math.random() * 0.5 + 0.1; // Velocidad entre 0.1 y 0.6 (para movimiento lento)
+            particle.speedX = (Math.random() - 0.5) * speed; // Dirección X aleatoria
+            particle.speedY = (Math.random() - 0.5) * speed; // Dirección Y aleatoria
+
+            // Define si es una partícula "rápida" (estrella fugaz o asteroide lejano)
+            if (Math.random() < 0.15) { // 15% de las partículas serán rápidas
+                const fastSpeed = Math.random() * 1.5 + 0.8; // Velocidad entre 0.8 y 2.3
+                particle.speedX = (Math.random() - 0.5) * fastSpeed;
+                particle.speedY = (Math.random() - 0.5) * fastSpeed;
+                particle.style.backgroundColor = '#ffcc00'; // Color distinto para notar el efecto
+                particle.style.color = '#ffcc00';
+                particle.style.boxShadow = '0 0 8px #ffcc00, 0 0 15px rgba(255, 204, 0, 0.4)'; // Más brillo
+            }
+
+            // Opacidad
+            setTimeout(() => {
+                particle.style.opacity = Math.random() * 0.8 + 0.2; // Opacidad entre 0.2 y 1.0
+            }, 50); // Pequeño retraso para que la transición funcione
+
+            container.appendChild(particle);
+            return particle;
+        }
+
+        const particles = [];
+        for (let i = 0; i < numParticles; i++) {
+            particles.push(createParticle());
+        }
+
+        function animateParticles() {
+            particles.forEach(particle => {
+                // Obtener posición actual en 'vw' y 'vh'
+                let currentX = parseFloat(particle.style.left);
+                let currentY = parseFloat(particle.style.top);
+
+                // Calcular nueva posición
+                let newX = currentX + particle.speedX * 0.05; // El factor 0.05 ajusta la velocidad percibida
+                let newY = currentY + particle.speedY * 0.05;
+
+                // Si la partícula sale de la pantalla, la reposiciona en el borde opuesto (efecto envolvente)
+                if (newX < -2) newX = 102;
+                if (newX > 102) newX = -2;
+                if (newY < -2) newY = 102;
+                if (newY > 102) newY = -2;
+
+                // Aplicar nueva posición
+                particle.style.left = `${newX}vw`;
+                particle.style.top = `${newY}vh`;
+            });
+
+            // Llama a la función de nuevo para el siguiente cuadro de animación
+            requestAnimationFrame(animateParticles);
+        }
+
+        // Inicia la animación
+        animateParticles();
+    </script>
+
+</body>
+</html>
